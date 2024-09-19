@@ -1,0 +1,68 @@
+[2024-09-18T12:37:16.106Z] [INFO] Démarrage du programme...
+[2024-09-18T12:37:16.106Z] [INFO] Vérification de l'existence du fichier de configuration...
+[2024-09-18T12:37:16.107Z] [INFO] Le fichier de configuration existe et la configuration est valide.
+[2024-09-18T12:37:16.107Z] [INFO] Le programme a démarré avec succès.
+[2024-09-18T12:37:16.149Z] [INFO] Début de l'analyse pour le dossier : D:\forTest\dir
+[2024-09-18T12:37:16.150Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir\1.txt
+[2024-09-18T12:37:16.151Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir\2.txt
+[2024-09-18T12:37:16.151Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir\3.txt
+[2024-09-18T12:37:16.153Z] [INFO] Analyse du dossier D:\forTest\dir terminée. 3 fichiers à supprimer (simulation), 1 fichiers conservés.
+[2024-09-18T12:37:16.154Z] [INFO] Analyse terminée pour le dossier : D:\forTest\dir
+[2024-09-18T12:37:16.155Z] [INFO] Début de l'analyse pour le dossier : D:\forTest\dir2
+[2024-09-18T12:37:16.155Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir2\a1\baba.odt
+[2024-09-18T12:37:16.156Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir2\a1\subdir\test111.odp
+[2024-09-18T12:37:16.157Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir2\a1\subdir\test222.whtt
+[2024-09-18T12:37:16.157Z] [INFO] Analyse du dossier D:\forTest\dir2\a1\subdir terminée. 2 fichiers à supprimer (simulation), 1 fichiers conservés.
+[2024-09-18T12:37:16.157Z] [INFO] Analyse du dossier D:\forTest\dir2\a1 terminée. 1 fichiers à supprimer (simulation), 1 fichiers conservés.
+[2024-09-18T12:37:16.158Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir2\a2\test1.rtf
+[2024-09-18T12:37:16.158Z] [INFO] Analyse du dossier D:\forTest\dir2\a2 terminée. 1 fichiers à supprimer (simulation), 1 fichiers conservés.
+[2024-09-18T12:37:16.158Z] [INFO] Analyse du dossier D:\forTest\dir2 terminée. 0 fichiers à supprimer (simulation), 1 fichiers conservés.
+[2024-09-18T12:37:16.159Z] [INFO] Analyse terminée pour le dossier : D:\forTest\dir2
+[2024-09-18T12:37:56.776Z] [INFO] Démarrage du programme...
+[2024-09-18T12:37:56.777Z] [INFO] Vérification de l'existence du fichier de configuration...
+[2024-09-18T12:37:56.777Z] [INFO] Le fichier de configuration existe et la configuration est valide.
+[2024-09-18T12:37:56.778Z] [INFO] Le programme a démarré avec succès.
+[2024-09-18T12:37:56.788Z] [INFO] Début de l'analyse pour le dossier : D:\forTest\dir
+[2024-09-18T12:37:56.789Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir\1.txt
+[2024-09-18T12:37:56.791Z] [INFO] Analyse du dossier D:\forTest\dir terminée. 1 fichiers à supprimer (simulation), 3 fichiers conservés.
+[2024-09-18T12:37:56.791Z] [INFO] Analyse terminée pour le dossier : D:\forTest\dir
+[2024-09-18T12:37:56.792Z] [INFO] Début de l'analyse pour le dossier : D:\forTest\dir2
+[2024-09-18T12:37:56.832Z] [INFO] Fichier à SUPPRIMER (simulation) : D:\forTest\dir2\a1\subdir\test111.odp
+[2024-09-18T12:37:56.833Z] [INFO] Analyse du dossier D:\forTest\dir2\a1\subdir terminée. 1 fichiers à supprimer (simulation), 2 fichiers conservés.
+[2024-09-18T12:37:56.833Z] [INFO] Analyse du dossier D:\forTest\dir2\a1 terminée. 0 fichiers à supprimer (simulation), 2 fichiers conservés.
+[2024-09-18T12:37:56.834Z] [INFO] Analyse du dossier D:\forTest\dir2\a2 terminée. 0 fichiers à supprimer (simulation), 2 fichiers conservés.
+[2024-09-18T12:37:56.834Z] [INFO] Analyse du dossier D:\forTest\dir2 terminée. 0 fichiers à supprimer (simulation), 2 fichiers conservés.
+[2024-09-18T12:37:56.834Z] [INFO] Analyse terminée pour le dossier : D:\forTest\dir2
+[2024-09-18T14:16:12.369Z] [INFO] Démarrage du programme...
+[2024-09-18T14:16:12.370Z] [INFO] Vérification de l'existence du fichier de configuration...
+[2024-09-18T14:16:12.371Z] [INFO] Le fichier de configuration existe et la configuration est valide.
+[2024-09-18T14:16:12.371Z] [INFO] Le programme a démarré avec succès.
+[2024-09-18T14:16:12.451Z] [INFO] Début du nettoyage pour le dossier : D:\forTest\dir
+[2024-09-18T14:16:12.499Z] [INFO] Fichier supprimé : D:\forTest\dir\1.txt
+[2024-09-18T14:16:12.500Z] [INFO] Nettoyage du dossier D:\forTest\dir terminé. 1 fichiers supprimés, 3 fichiers conservés.
+[2024-09-18T14:16:12.501Z] [INFO] Nettoyage terminé pour le dossier : D:\forTest\dir
+[2024-09-18T14:16:12.501Z] [INFO] Début du nettoyage pour le dossier : D:\forTest\dir2
+[2024-09-18T14:16:12.618Z] [INFO] Fichier supprimé : D:\forTest\dir2\a1\subdir\test111.odp
+[2024-09-18T14:16:12.619Z] [INFO] Nettoyage du dossier D:\forTest\dir2\a1\subdir terminé. 1 fichiers supprimés, 2 fichiers conservés.
+[2024-09-18T14:16:12.619Z] [INFO] Nettoyage du dossier D:\forTest\dir2\a1 terminé. 0 fichiers supprimés, 2 fichiers conservés.
+[2024-09-18T14:16:12.620Z] [INFO] Nettoyage du dossier D:\forTest\dir2\a2 terminé. 0 fichiers supprimés, 2 fichiers conservés.
+[2024-09-18T14:16:12.620Z] [INFO] Nettoyage du dossier D:\forTest\dir2 terminé. 0 fichiers supprimés, 2 fichiers conservés.
+[2024-09-18T14:16:12.621Z] [INFO] Nettoyage terminé pour le dossier : D:\forTest\dir2
+[2024-09-18T14:16:58.816Z] [INFO] Démarrage du programme...
+[2024-09-18T14:16:58.816Z] [INFO] Vérification de l'existence du fichier de configuration...
+[2024-09-18T14:16:58.817Z] [INFO] Le fichier de configuration existe et la configuration est valide.
+[2024-09-18T14:16:58.817Z] [INFO] Le programme a démarré avec succès.
+[2024-09-18T14:16:58.825Z] [INFO] Début du nettoyage pour le dossier : D:\forTest\dir
+[2024-09-18T14:16:58.826Z] [INFO] Fichier supprimé : D:\forTest\dir\2.txt
+[2024-09-18T14:16:58.827Z] [INFO] Fichier supprimé : D:\forTest\dir\3.txt
+[2024-09-18T14:16:58.828Z] [INFO] Nettoyage du dossier D:\forTest\dir terminé. 2 fichiers supprimés, 1 fichiers conservés.
+[2024-09-18T14:16:58.828Z] [INFO] Nettoyage terminé pour le dossier : D:\forTest\dir
+[2024-09-18T14:16:58.829Z] [INFO] Début du nettoyage pour le dossier : D:\forTest\dir2
+[2024-09-18T14:16:58.858Z] [INFO] Fichier supprimé : D:\forTest\dir2\a1\baba.odt
+[2024-09-18T14:16:58.860Z] [INFO] Fichier supprimé : D:\forTest\dir2\a1\subdir\test222.whtt
+[2024-09-18T14:16:58.861Z] [INFO] Nettoyage du dossier D:\forTest\dir2\a1\subdir terminé. 1 fichiers supprimés, 1 fichiers conservés.
+[2024-09-18T14:16:58.861Z] [INFO] Nettoyage du dossier D:\forTest\dir2\a1 terminé. 1 fichiers supprimés, 1 fichiers conservés.
+[2024-09-18T14:16:58.875Z] [INFO] Fichier supprimé : D:\forTest\dir2\a2\test1.rtf
+[2024-09-18T14:16:58.876Z] [INFO] Nettoyage du dossier D:\forTest\dir2\a2 terminé. 1 fichiers supprimés, 1 fichiers conservés.
+[2024-09-18T14:16:58.877Z] [INFO] Nettoyage du dossier D:\forTest\dir2 terminé. 0 fichiers supprimés, 1 fichiers conservés.
+[2024-09-18T14:16:58.877Z] [INFO] Nettoyage terminé pour le dossier : D:\forTest\dir2
