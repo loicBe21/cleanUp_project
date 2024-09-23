@@ -3,124 +3,172 @@ const path = require("path");
 const log = require("../utilities/logger");
 
 /**
- * Fonction pour obtenir les fichiers d'un dossier récursivement
+ * Filtrer les fichiers en fonction des extensions autorisées pour la suppression
+ * @param {Array} files - Liste des fichiers à filtrer
+ * @param {Array} allowedExtensions - Extensions autorisées
+ * @returns {Array} - Liste des fichiers filtrés
+ */
+function filterFilesByExtension(files, allowedExtensions) {
+  return files.filter((file) => {
+    const fileExtension = path.extname(file.path);
+    return allowedExtensions.includes(fileExtension);
+  });
+}
+
+/**
+ * Trier les fichiers par date de création (les plus anciens en premier)
+ * @param {Array} files - Liste des fichiers à trier
+ * @returns {Array} - Liste triée
+ */
+function sortFilesByDate(files) {
+  return files.sort((a, b) => a.stat.birthtimeMs - b.stat.birthtimeMs);
+}
+
+/**
+ * Obtenir les fichiers d'un dossier
  * @param {string} folderPath - Chemin du dossier
- * @returns {Array} - Liste des fichiers dans le dossier
+ * @returns {Array} - Liste des fichiers avec leurs statistiques
  */
 function getFilesInFolder(folderPath) {
-  let filesInFolder = [];
-
+  const files = [];
   const items = fs.readdirSync(folderPath);
-  if (items.length === 0) {
-    log.info(`Le dossier est vide : ${folderPath}`);
-    return filesInFolder; // Retourne une liste vide si le dossier est vide
-  }
 
   items.forEach((item) => {
     const itemPath = path.join(folderPath, item);
     const stats = fs.statSync(itemPath);
 
-    if (!stats.isDirectory()) {
-      // Si c'est un fichier, on l'ajoute à la liste
-      filesInFolder.push({
+    // Si c'est un fichier, on récupère ses statistiques
+    if (stats.isFile()) {
+      files.push({
         path: itemPath,
         stat: stats,
       });
     }
   });
 
-  return filesInFolder;
+  return files;
 }
 
 /**
- * Fonction pour récupérer et supprimer les fichiers dans un dossier et ses sous-dossiers récursivement
+ * Obtenir les fichiers à supprimer dans un dossier
  * @param {string} folderPath - Chemin du dossier
  * @param {number} keepCount - Nombre de fichiers à garder
+ * @param {Array} allowedExtensions - Extensions autorisées à supprimer
+ * @returns {Array} - Liste des fichiers à supprimer
  */
-function listAndDeleteFilesRecursively(folderPath, keepCount) {
+function getFilesToDelete(folderPath, keepCount, allowedExtensions) {
+  // Récupérer tous les fichiers dans le dossier
+  let filesInFolder = getFilesInFolder(folderPath);
+
+  // Filtrer les fichiers par extension
+  let filesToConsider = filterFilesByExtension(
+    filesInFolder,
+    allowedExtensions
+  );
+
+  // Trier les fichiers par date
+  let sortedFiles = sortFilesByDate(filesToConsider);
+
+  // Sélectionner les fichiers à supprimer
+  if (sortedFiles.length > keepCount) {
+    return sortedFiles.slice(0, sortedFiles.length - keepCount);
+  }
+  return [];
+}
+
+
+
+/**
+ * Supprimer un fichier avec gestion des erreurs
+ * @param {string} filePath - Chemin du fichier à supprimer
+ */
+function deleteFile(filePath) {
   try {
-    // Obtenir les fichiers du dossier actuel
-    let filesInCurrentFolder = getFilesInFolder(folderPath);
-
-    // Trier les fichiers par date de création (les plus anciens en premier)
-    filesInCurrentFolder.sort(
-      (a, b) => a.stat.birthtimeMs - b.stat.birthtimeMs
-    );
-
-    // Si le nombre de fichiers est supérieur à keepCount, récupérer ceux à supprimer
-    let filesToDelete = [];
-    if (filesInCurrentFolder.length > keepCount) {
-      filesToDelete = filesInCurrentFolder.slice(
-        0,
-        filesInCurrentFolder.length - keepCount
-      );
+    // Vérifier si le fichier existe avant de tenter de le supprimer
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath); // Supprimer le fichier
+      log.info(`Fichier supprimé avec succès : ${filePath}`);
+      console.log(`Fichier supprimé avec succès : ${filePath}`);
+    } else {
+      log.error(`Le fichier n'existe pas : ${filePath}`);
+      console.error(`Le fichier n'existe pas : ${filePath}`);
     }
-
-    // Supprimer les fichiers
-    filesToDelete.forEach((file) => {
-      try {
-        fs.unlinkSync(file.path); // Suppression du fichier
-        log.info(`Fichier supprimé : ${file.path}`);
-        console.log(`Fichier supprimé : ${file.path}`);
-      } catch (error) {
-        log.error(
-          `Erreur lors de la suppression du fichier : ${file.path} - ${error.message}`
-        );
-        console.error(
-          `Erreur lors de la suppression du fichier : ${file.path} - ${error.message}`
-        );
-      }
-    });
-
-    // Parcourir récursivement les sous-dossiers
-    const items = fs.readdirSync(folderPath);
-    items.forEach((item) => {
-      const itemPath = path.join(folderPath, item);
-      const stats = fs.statSync(itemPath);
-
-      if (stats.isDirectory()) {
-        listAndDeleteFilesRecursively(itemPath, keepCount);
-      }
-    });
-
-    log.info(
-      `Nettoyage du dossier ${folderPath} terminé. ${filesToDelete.length} fichiers supprimés, ${keepCount} fichiers conservés.`
-    );
   } catch (error) {
-    log.error(
-      `Erreur lors du nettoyage du dossier ${folderPath} : ${error.message}`
-    );
+    // En cas d'erreur lors de la suppression
+    log.error(`Erreur lors de la suppression du fichier ${filePath} : ${error.message}`);
+    console.error(`Erreur lors de la suppression du fichier ${filePath} : ${error.message}`);
     throw error;
   }
 }
 
 /**
- * Fonction pour nettoyer tous les dossiers spécifiés dans la configuration
- * @param {Array} folders - Liste des dossiers à nettoyer avec les paramètres
+ * Parcourir les dossiers de manière récursive et supprimer les fichiers
+ * @param {string} folderPath - Chemin du dossier à analyser
+ * @param {number} keepCount - Nombre de fichiers récents à garder
+ * @param {Array} allowedExtensions - Extensions de fichiers autorisées à supprimer
+ * @param {boolean} simulateDeletion - Si true, affiche les fichiers à supprimer sans les supprimer
+ */
+function deleteFilesRecursively(folderPath, keepCount, allowedExtensions, simulateDeletion = false) {
+  try {
+    // Obtenir les fichiers à supprimer
+    let filesToDelete = getFilesToDelete(folderPath, keepCount, allowedExtensions);
+
+    // Afficher ou supprimer les fichiers sélectionnés
+    filesToDelete.forEach((file) => {
+      if (simulateDeletion) {
+        console.log(`Fichier à SUPPRIMER (simulation) : ${file.path}`);
+      } else {
+        log.info(`Fichier à SUPPRIMER : ${file.path}`);
+        console.log(`Fichier à SUPPRIMER : ${file.path}`);
+        deleteFile(file.path); // Appelle la fonction pour supprimer le fichier
+      }
+    });
+
+    // Lire les sous-dossiers pour traitement récursif
+    const items = fs.readdirSync(folderPath);
+    items.forEach((item) => {
+      const itemPath = path.join(folderPath, item);
+      const stats = fs.statSync(itemPath);
+
+      // Si c'est un dossier, appeler récursivement la fonction
+      if (stats.isDirectory()) {
+        deleteFilesRecursively(itemPath, keepCount, allowedExtensions, simulateDeletion);
+      }
+    });
+
+    log.info(`Analyse terminée pour le dossier ${folderPath}.`);
+  } catch (error) {
+    log.error(`Erreur lors de l'analyse du dossier ${folderPath} : ${error.message}`);
+    throw error;
+  }
+}
+
+
+
+/**
+ * Nettoyer tous les dossiers définis dans la configuration
+ * @param {Array} folders - Liste des dossiers à nettoyer
  */
 function cleanAllFolders(folders) {
-  console.log("Dossiers à nettoyer : ", folders); // Affiche la configuration des dossiers dans la console
-
   folders.forEach((folderConfig) => {
+    // Vérifier si le dossier existe
     if (fs.existsSync(folderConfig.path)) {
-      console.log(`Début du nettoyage pour le dossier : ${folderConfig.path}`);
-      log.info(`Début du nettoyage pour le dossier : ${folderConfig.path}`);
+      log.info(`Début de l'analyse pour le dossier : ${folderConfig.path}`);
 
-      // Nettoyage récursif des fichiers avec suppression réelle
-      listAndDeleteFilesRecursively(
+      // Appeler la fonction pour analyser et supprimer les fichiers
+      deleteFilesRecursively(
         folderConfig.path,
-        folderConfig.keepRecentFiles
+        folderConfig.keepRecentFiles,
+        folderConfig.extensionsToDelete,
+        false
       );
 
-      console.log(`Nettoyage terminé pour le dossier : ${folderConfig.path}`);
-      log.info(`Nettoyage terminé pour le dossier : ${folderConfig.path}`);
+      log.info(`Analyse terminée pour le dossier : ${folderConfig.path}`);
     } else {
-      console.log(`Le dossier spécifié n'existe pas : ${folderConfig.path}`);
       log.error(`Le dossier spécifié n'existe pas : ${folderConfig.path}`);
     }
   });
 }
 
-module.exports = {
-  cleanAllFolders,
-};
+// Exporter la fonction de nettoyage pour l'utiliser dans le fichier principal
+module.exports = { cleanAllFolders };

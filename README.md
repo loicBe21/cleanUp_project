@@ -43,6 +43,13 @@ Clean Up Directory is a Node.js project designed to automate the cleaning of dir
 
 ## Configuration
 
+After cloning the repository, follow these steps to configure the project:
+
+1. Rename the `src/config/config.example.js` file to `config.js`:
+
+   ```bash
+   mv src/config/config.example.js src/config/config.js
+
 To configure the directories to be cleaned and the number of files to retain, modify the `config.js` file located in the root directory.
 
 Example `config.js`:

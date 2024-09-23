@@ -7,8 +7,8 @@ function main() {
   try {
     startProgram(); // Appelle la fonction de démarrage
     console.log("Le programme a démarré avec succès."); // Affiche le succès dans la console
-      // console.log("Début des opérations de nettoyage...");
-    console.log(" conf " + config.foldersToClean)
+    // console.log("Début des opérations de nettoyage...");
+    // console.log(" conf " + config.foldersToClean)
     cleaningService.cleanAllFolders(config.foldersToClean);
     console.log("Opérations de nettoyage terminées."); 
       

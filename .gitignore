@@ -1,0 +1,5 @@
+# Ignorer le fichier de log de l'application
+app.log
+
+# Ignorer le fichier de configuration réel
+src/config/config.js
