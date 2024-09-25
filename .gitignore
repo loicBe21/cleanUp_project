@@ -1,9 +1,9 @@
 
 # Ignorer le fichier de configuration réel
-/src/config/config.js
+src/config/config.js
 
 
 
 
-*.log
+logs/
 node_modules/
