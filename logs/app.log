@@ -1,9 +1,0 @@
-[2024-09-23T12:46:26.779Z] [INFO] Démarrage du programme...
-[2024-09-23T12:46:26.779Z] [INFO] Vérification de l'existence du fichier de configuration...
-[2024-09-23T12:46:26.780Z] [INFO] Le fichier de configuration existe et la configuration est valide.
-[2024-09-23T12:46:26.780Z] [INFO] Le programme a démarré avec succès.
-[2024-09-23T12:46:26.787Z] [INFO] Début de l'analyse pour le dossier : D:\forTest\dir
-[2024-09-23T12:46:26.826Z] [INFO] Analyse terminée pour le dossier D:\forTest\dir\subdir1.
-[2024-09-23T12:46:26.826Z] [INFO] Analyse terminée pour le dossier D:\forTest\dir\subdir2.
-[2024-09-23T12:46:26.826Z] [INFO] Analyse terminée pour le dossier D:\forTest\dir.
-[2024-09-23T12:46:26.827Z] [INFO] Analyse terminée pour le dossier : D:\forTest\dir
