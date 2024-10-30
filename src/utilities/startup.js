@@ -3,6 +3,30 @@ const path = require("path");
 const config = require("../config/config"); // Import de la configuration
 const log = require("./logger"); // Import du service de log
 
+
+const logFilePath = path.resolve(__dirname, "../../logs/app.log"); // Chemin du fichier log
+
+// Fonction pour s'assurer que le fichier de log et son dossier existent
+function ensureLogFilePath() {
+  const logDir = path.dirname(logFilePath); // Récupère le chemin du dossier
+
+  // Vérifier si le dossier existe, et le créer si nécessaire
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true }); // Création récursive pour s'assurer que tous les dossiers parents sont créés
+    log.info(`Dossier de logs créé à l'emplacement : ${logDir}`);
+  }
+
+  // Vérifier si le fichier de log existe, et le créer si nécessaire
+  if (!fs.existsSync(logFilePath)) {
+    fs.writeFileSync(logFilePath, ""); // Crée un fichier vide
+    log.info(`Fichier de log créé à l'emplacement : ${logFilePath}`);
+  } else {
+    log.info("Le fichier de log existe déjà.");
+  }
+}
+
+
+
 // Fonction pour vérifier si un fichier existe
 function configExists(configPath) {
   return fs.existsSync(configPath);
@@ -10,6 +34,9 @@ function configExists(configPath) {
 
 // Fonction pour démarrer le programme avec journalisation
 function startProgram() {
+  // Vérifier et créer le fichier de log si nécessaire
+  ensureLogFilePath();
+
   log.info("Démarrage du programme..."); // Premier log
 
   const configPath = path.resolve(__dirname, "../config/config.js");
