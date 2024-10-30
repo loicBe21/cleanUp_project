@@ -112,7 +112,6 @@ function deleteFilesRecursively(folderPath, keepCount, allowedExtensions, simula
   try {
     // Obtenir les fichiers à supprimer
     let filesToDelete = getFilesToDelete(folderPath, keepCount, allowedExtensions);
-
     // Afficher ou supprimer les fichiers sélectionnés
     filesToDelete.forEach((file) => {
       if (simulateDeletion) {
@@ -149,7 +148,7 @@ function deleteFilesRecursively(folderPath, keepCount, allowedExtensions, simula
  * Nettoyer tous les dossiers définis dans la configuration
  * @param {Array} folders - Liste des dossiers à nettoyer
  */
-function cleanAllFolders(folders) {
+function cleanAllFolders(folders , simulateDeletion) {
   folders.forEach((folderConfig) => {
     // Vérifier si le dossier existe
     if (fs.existsSync(folderConfig.path)) {
@@ -160,7 +159,7 @@ function cleanAllFolders(folders) {
         folderConfig.path,
         folderConfig.keepRecentFiles,
         folderConfig.extensionsToDelete,
-        false
+        simulateDeletion
       );
 
       log.info(`Analyse terminée pour le dossier : ${folderConfig.path}`);
